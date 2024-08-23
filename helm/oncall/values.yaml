@@ -98,6 +98,9 @@ engine:
   #     name: my-redis-tls
   #     defaultMode: 0640
 
+  serviceMonitor:
+    enabled: false
+
 detached_integrations_service:
   enabled: false
   type: LoadBalancer

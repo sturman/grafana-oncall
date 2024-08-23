@@ -1,0 +1,17 @@
+{{- if and .Values.engine.serviceMonitor.enabled .Values.oncall.exporter.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "oncall.engine.fullname" . }}
+spec:
+  endpoints:
+    - interval: 15s
+      path: /metrics/
+      port: http
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{- include "oncall.engine.selectorLabels" . | nindent 6 }}
+{{- end }}
